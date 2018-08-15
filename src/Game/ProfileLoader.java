@@ -55,6 +55,7 @@ public class ProfileLoader {
 
 	private static void parseProfileObject(JSONObject profileData, boolean challengeMode,
 			String[] challengeValues) {
+
 		boolean selectRow = true;
 		Profile profile = new Profile();
 
