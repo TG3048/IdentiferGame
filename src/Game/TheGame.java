@@ -133,7 +133,7 @@ public class TheGame {
 		return playerStats;
 	}
 
-	private boolean evaluatePlayerResponse(String validProfileId, String selectedProfileId) {
+	boolean evaluatePlayerResponse(String validProfileId, String selectedProfileId) {
 
 		return selectedProfileId.equals(validProfileId);
 	}
@@ -149,16 +149,22 @@ public class TheGame {
 		playerStats.setGameScore(gameScore);
 
 		// calculate average guess time.
-		Duration totalDurations = Duration.ZERO;
-		for (Duration duration : gameDurationMap.values()) {
-			totalDurations = totalDurations.plus(duration);
-		}
-
+		Duration totalDurations = sumTheDurations(gameDurationMap);
 		Duration averageGuessTimeD = totalDurations.dividedBy(gameDurationMap.size());
+
 		playerStats.setAverageGuessTime(averageGuessTimeD.getSeconds());
 		playerStats.setEndGameTime(Instant.now());
 
 		return playerStats;
+	}
+
+	Duration sumTheDurations(Map<Integer, Duration> gameDurationMap) {
+		// calculate average guess time.
+		Duration totalDurations = Duration.ZERO;
+		for (Duration duration : gameDurationMap.values()) {
+			totalDurations = totalDurations.plus(duration);
+		}
+		return totalDurations;
 	}
 
 	public static void main(String[] args) {
